@@ -29,7 +29,7 @@ public:
 	void RasporediBrodove();
 	int CharIndex(char);
 	int Shoot(koordinate_t);
-	//void FindShip(int, Ship&);
+	Ship& FindShip(int);
 	void PrintSummary();
 	koordinate_t MaxRowsCols();
 	void Test();

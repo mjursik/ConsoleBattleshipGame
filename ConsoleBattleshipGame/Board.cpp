@@ -168,20 +168,6 @@ int Board::Shoot(koordinate_t cor)
 	}
 }
 
-//void Board::FindShip(int id, Ship& s)
-//{
-//	vector<Ship>::iterator it = find_if(_ships.begin(), _ships.end(), [&id](Ship& itm) {
-//		return itm.getId() == id;
-//	});
-//
-//	if (it != _ships.end())
-//	{
-//		s = *it;
-//	}
-//
-//	s = Ship(0, 0);
-//}
-
 void Board::PrintSummary()
 {
 	int totalHits = 0;
@@ -197,16 +183,6 @@ void Board::PrintSummary()
 			}
 		}
 	}
-
-	//vector<Ship>::iterator it;
-
-	//for (it = _ships.begin(); it != _ships.end(); ++it)
-	//{
-	//	if (it->isSunken())
-	//	{
-	//		totalShipsDown++;
-	//	}
-	//}
 
 	for (Ship s : _ships)
 	{
