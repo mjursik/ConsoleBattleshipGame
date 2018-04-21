@@ -198,11 +198,19 @@ void Board::PrintSummary()
 		}
 	}
 
-	vector<Ship>::iterator it;
+	//vector<Ship>::iterator it;
 
-	for (it = _ships.begin(); it != _ships.end(); ++it)
+	//for (it = _ships.begin(); it != _ships.end(); ++it)
+	//{
+	//	if (it->isSunken())
+	//	{
+	//		totalShipsDown++;
+	//	}
+	//}
+
+	for (Ship s : _ships)
 	{
-		if (it->isSunken())
+		if (s.isSunken())
 		{
 			totalShipsDown++;
 		}
