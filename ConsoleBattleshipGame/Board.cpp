@@ -89,7 +89,7 @@ void Board::PrintAttempts()
 	}
 }
 
-void Board::AddShip(int row, int col, Ship ship)
+void Board::AddShip(koordinate_t cor, Ship ship)
 {
 	int id = _ships.size() + 1;
 	int size = ship.getSize();
@@ -134,9 +134,9 @@ int Board::CharIndex(char c)
 	return pos;
 }
 
-int Board::Shoot(const int row, const int col)
+int Board::Shoot(koordinate_t cor)
 {
-	Polje &p = _polja[row][col];
+	Polje &p = _polja[cor.row][cor.col];
 	int id = 0;
 
 	p.visited();

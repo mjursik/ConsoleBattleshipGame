@@ -25,11 +25,11 @@ public:
 	~Board();
 	void PrintBoard();
 	void PrintAttempts();
-	void AddShip(int, int, Ship);
+	void AddShip(koordinate_t, Ship);
 	void RasporediBrodove();
 	int CharIndex(char);
-	int Shoot(const int, const int);
-	void FindShip(int, Ship&);
+	int Shoot(koordinate_t);
+	//void FindShip(int, Ship&);
 	void PrintSummary();
 	koordinate_t MaxRowsCols();
 	void Test();
