@@ -12,6 +12,8 @@ using namespace std;
 Board::Board(int maxRows)
 {
 	_maxRows = maxRows;
+	_totalAttempts = 0;
+	ABC = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'Z' };
 	InitPolja();
 }
 
@@ -53,6 +55,32 @@ void Board::PrintBoard()
 		for (size_t j = 0; j < _maxRows; j++)
 		{
 			cout << setw(3) << (_polja[i][j].isShip() ? "O" : "~");
+			if (j == _maxRows - 1)
+			{
+				cout << endl;
+			}
+		}
+	}
+}
+
+void Board::PrintAttempts()
+{
+	IspisiZaglavlje();
+	for (size_t i = 0; i < _maxRows; i++)
+	{
+		cout << setw(3) << i + 1;
+		for (size_t j = 0; j < _maxRows; j++)
+		{
+			char c = '~';
+			if (_polja[i][j].isHit())
+			{
+				c = 'X';
+			}
+			else if (_polja[i][j].isVisited())
+			{
+				c = '#';
+			}
+			cout << setw(3) << c;
 			if (j == _maxRows - 1)
 			{
 				cout << endl;
@@ -111,6 +139,9 @@ int Board::Shoot(const int row, const int col)
 	Polje &p = _polja[row][col];
 	int id = 0;
 
+	p.visited();
+	_totalAttempts++;
+
 	if (p.isShip())
 	{
 		if (p.isHit())
@@ -120,8 +151,14 @@ int Board::Shoot(const int row, const int col)
 		else {
 			p.setHit(true);
 			id = p.getShipId();
-			Ship s = FindShip(id);
-			s.takeHit();
+			vector<Ship>::iterator it = find_if(_ships.begin(), _ships.end(), [&id](Ship& itm) {
+				return itm.getId() == id;
+			});
+
+			if (it != _ships.end())
+			{
+				it->takeHit();
+			}
 			return 1;
 		}
 	}
@@ -131,21 +168,65 @@ int Board::Shoot(const int row, const int col)
 	}
 }
 
-Ship Board::FindShip(int id)
-{
-	vector<Ship>::iterator it = find_if(_ships.begin(), _ships.end(), [&id](Ship& itm) {
-		return itm.getId() == id;
-	});
+//void Board::FindShip(int id, Ship& s)
+//{
+//	vector<Ship>::iterator it = find_if(_ships.begin(), _ships.end(), [&id](Ship& itm) {
+//		return itm.getId() == id;
+//	});
+//
+//	if (it != _ships.end())
+//	{
+//		s = *it;
+//	}
+//
+//	s = Ship(0, 0);
+//}
 
-	if (it != _ships.end())
+void Board::PrintSummary()
+{
+	int totalHits = 0;
+	int totalShipsDown = 0;
+
+	for (size_t i = 0; i < _maxRows; i++)
 	{
-		return *it;
+		for (size_t j = 0; j < _maxRows; j++)
+		{
+			if (_polja[i][j].isHit())
+			{
+				totalHits++;
+			}
+		}
 	}
 
-	return Ship(0, 0);
+	vector<Ship>::iterator it;
+
+	for (it = _ships.begin(); it != _ships.end(); ++it)
+	{
+		if (it->isSunken())
+		{
+			totalShipsDown++;
+		}
+	}
+
+	cout << "Ukupno pokušaja: " << _totalAttempts << "  Ukupno pogodaka: " << totalHits << "  Potopljeno brodova: " << totalShipsDown << "/" << _ships.size();
+}
+
+koordinate_t Board::MaxRowsCols()
+{
+	koordinate_t cor;
+	cor.col = _maxRows;
+	cor.row = _maxRows;
+	return cor;
 }
 
 void Board::Test() {
-	cout << "Total ABC: " << ABC.size();
-	IspisiZaglavlje();
+	vector<Ship>::iterator it;
+
+	for (it = _ships.begin(); it != _ships.end(); ++it)
+	{
+		cout << "Ship ID: " << it->getId();
+		cout << " Size: " << it->getSize();
+		cout << " Total hits: " << it->totalHits();
+		cout << " Potopljen: " << it->isSunken() << endl;
+	}
 }

@@ -11,7 +11,9 @@ public:
 	~Polje();
 	void setShip(bool, int);
 	void setHit(bool);
+	void visited();
 	bool isShip();
 	bool isHit();
+	bool isVisited();
 	int getShipId();
 };

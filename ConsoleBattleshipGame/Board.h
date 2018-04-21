@@ -4,6 +4,7 @@
 #include <string>
 #include "Polje.h"
 #include "Ship.h"
+#include "Koordinate.h"
 
 using namespace std;
 
@@ -13,7 +14,9 @@ private:
 	uint16_t _maxRows = 0;
 	vector<Ship> _ships;
 	vector<std::vector<Polje>> _polja;
-	vector<char> ABC = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'Z' };
+	vector<char> ABC;
+
+	int _totalAttempts;
 
 	void IspisiZaglavlje();
 	void InitPolja();
@@ -21,11 +24,14 @@ public:
 	Board(int);
 	~Board();
 	void PrintBoard();
+	void PrintAttempts();
 	void AddShip(int, int, Ship);
 	void RasporediBrodove();
 	int CharIndex(char);
 	int Shoot(const int, const int);
-	Ship FindShip(int);
+	void FindShip(int, Ship&);
+	void PrintSummary();
+	koordinate_t MaxRowsCols();
 	void Test();
 };
 

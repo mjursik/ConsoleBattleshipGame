@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Koordinate.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Polje.h" />
     <ClInclude Include="stdafx.h" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Koordinate.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="ConsoleBattleshipGame.cpp" />
     <ClCompile Include="Polje.cpp" />

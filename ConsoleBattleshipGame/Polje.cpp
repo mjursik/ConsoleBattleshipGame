@@ -26,6 +26,11 @@ void Polje::setHit(bool hit)
 	_isHit = hit;
 }
 
+void Polje::visited()
+{
+	_visited = true;
+}
+
 bool Polje::isShip()
 {
 	return _isShip;
@@ -34,6 +39,11 @@ bool Polje::isShip()
 bool Polje::isHit()
 {
 	return _isHit;
+}
+
+bool Polje::isVisited()
+{
+	return _visited;
 }
 
 int Polje::getShipId()
